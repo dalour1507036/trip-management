@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/trip_management_db?currentSchema=public
+    username: ${DB_USERNAME:postgres}  # environment variable for sensitive values
+    password: ${DB_PASSWORD:default-password}  # environment variable for sensitive values
+
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}  # environment variable
+      group-id: ${KAFKA_GROUP_ID}  # environment variable
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}  # environment variable
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      my-topic: trip-events

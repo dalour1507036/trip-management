@@ -1,3 +1,29 @@
+server:
+  port: 8061
+
 spring:
   application:
-    name: transporter-management
+    name: trip-management
+  profiles:
+    active: dev
+  lifecycle:
+    timeout-per-shutdown-phase: "90s"
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 30000
+      idle-timeout: 1800000
+      max-lifetime: 3600000
+      minimum-idle: 2
+      pool-name: TripBackendServiceHikariCP
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect  # This should be sufficient for dialect detection
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    open-in-view: false
+
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
